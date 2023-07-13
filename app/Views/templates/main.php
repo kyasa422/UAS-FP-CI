@@ -7,21 +7,16 @@
 
     <link href="/src/style.css" rel="stylesheet">
    
-    <title> dashboard</title>
+    <title><?= $title ?></title>
 </head>
 
 <body >
-    <?= $this->include('template/navbar') ?>
+    <?= $this->include('templates/navbar') ?>
 
-    <?= $this->renderSection('content') ?>
-
-
-   
-
+    <div class="bg-white w-screen h-screen">
+        <?= $this->renderSection('content') ?>
+    </div>
     
 </body>
-<script>
-  
-</script>
 
 </html>
