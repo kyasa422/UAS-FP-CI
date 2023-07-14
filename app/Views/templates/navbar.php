@@ -1,13 +1,20 @@
-<div class="navbar bg-yellow-400 h-24">
-  <div class="">
-    <a href="#" class="ml-3">
-      <div class="w-20 h-20 bg-black rounded-full transition hover:scale-105" >
-        <img src="/IMG/car-toy.png" alt="Mobil">
-      </div>
-    </a>
+<div class="bg-yellow-400 h-24 w-full flex items-center justify-between px-5">
+  <div class="flex items-center hover:scale-105 transition">
     <a href="#">
-      <h1 class="text-4xl font-bold text-white mx-4 transition hover:scale-105">Mobil.com</h1>
+      <div class="w-20 h-20 bg-black rounded-full">
+        <img src="/IMG/car-toy.png" alt="moil">
+      </div>
+      <a href="#">
+        <h1 class="text-3xl text-white font-bold mx-4">MOBIL.com</h1>
+      </a>
     </a>
-    <div class="w-7"></div>
+  </div>
+  <div class="flex items-center">
+    <!-- <a href="#" class="text-left text-white font-normal text-2xl mr-14">Kelola</a> -->
+    <a href="#" class="">
+      <h1 class="text-white bg-red-600 text-2xl px-4 py-2 rounded-md font-bold hover:bg-red-700">Logout</h1>
+    </a>
+    
   </div>
 </div>
+

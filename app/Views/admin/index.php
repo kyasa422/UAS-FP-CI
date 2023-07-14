@@ -1,7 +1,7 @@
 <?= $this->extend('templates/main'); ?>
 <?= $this->section('content'); ?>
 <div class="py-4 px-11">
-    <a href="" class="btn btn-accent text-white">[+] Tambah Mobil</a>
+    <a href="/admin/tambah" class="btn btn-accent text-white">[+] Tambah Mobil</a>
     <h1 class="text-4xl text-slate-500 font-bold mt-10">Sedan</h1>
     <div class="flex items-center flex-wrap gap-8">
         <!-- card mobil -->

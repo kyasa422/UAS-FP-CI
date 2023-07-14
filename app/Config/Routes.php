@@ -29,7 +29,16 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// user
 $routes->get('/', 'UserController::index');
+
+
+// admin
+$routes->get('/admin', 'AdminController::login');
+$routes->post('/auth', 'AdminController::auth');
+$routes->get('/admin/dashboard', 'AdminController::index');
+$routes->get('/admin/tambah', 'AdminController::addViewMobil');
 
 /*
  * --------------------------------------------------------------------

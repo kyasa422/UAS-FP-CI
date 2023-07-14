@@ -13,7 +13,7 @@
 <body >
     <?= $this->include('templates/navbar') ?>
 
-    <div class="bg-white w-screen h-screen">
+    <div class="bg-white">
         <?= $this->renderSection('content') ?>
     </div>
     
