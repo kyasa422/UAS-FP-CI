@@ -2,8 +2,19 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
+use App\Models\KendaraanModel;
+
 class adminController extends BaseController
 {
+
+    protected $kendaraanModel;
+
+    public function __construct()
+    {
+        $this->kendaraanModel = new KendaraanModel();
+    }
+
     public function login() {
         return view('admin/login');
     }
@@ -42,7 +53,10 @@ class adminController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Dashboard'
+            'title' => 'Dashboard',
+            'sedan' => $this->kendaraanModel->getSedan(),
+            'suv' => $this->kendaraanModel->getSUV(),
+            'minibus' => $this->kendaraanModel->getMinibus()
         ];
 
         return view('admin/index', $data);

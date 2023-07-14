@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class KendaraanModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'kendaraans';
+    protected $table            = 'kendaraan';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['nama', 'jenis', 'warna', 'foto', 'harga', 'penumpang', 'efisiensi', 'pajak', 'mesin'];
 
     // Dates
     protected $useTimestamps = false;
@@ -38,4 +38,16 @@ class KendaraanModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getSedan(){
+        return $this->select('kendaraan.id as id, nama, jenis, warna, foto, harga, penumpang, efisiensi, pajak, mesin')->orderBy('id', 'desc')->where(['jenis'=>'Sedan'])->findAll();
+    }
+
+    public function getSUV(){
+        return $this->select('kendaraan.id as id, nama, jenis, warna, foto, harga, penumpang, efisiensi, pajak, mesin')->orderBy('id', 'desc')->where(['jenis'=>'SUV'])->findAll();
+    }
+
+    public function getMinibus(){
+        return $this->select('kendaraan.id as id, nama, jenis, warna, foto, harga, penumpang, efisiensi, pajak, mesin')->orderBy('id', 'desc')->where(['jenis'=>'Minibus'])->findAll();
+    }
 }
