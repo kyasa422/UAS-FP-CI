@@ -49,7 +49,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="foto" class="text-xl font-medium ml-2">Foto Mobil</label>
-                        <input type="file" class="file-input file-input-bordered w-full" />
+                        <input type="file" class="file-input file-input-bordered w-full" name="fotomobil" />
                     </div>
                     <div class="absolute bottom-0 right-0">
                         <button type="submit" class="btn btn-accent">Tambah</button>

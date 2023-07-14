@@ -71,14 +71,28 @@ class adminController extends BaseController
     }
 
     public function addMobil() {
-        $nama = $this->request->getVar('nama');
-        $jenis = $this->request->getVar('jenis');
-        $warna = $this->request->getVar('warna');
-        $penumpang = $this->request->getVar('penumpang');
-        $efisiensi = $this->request->getVar('efisiensi');
-        $mesin = $this->request->getVar('mesin');
-        $harga = $this->request->getVar('harga');
-        $pajak = $this->request->getVar('pajak');
-        $foto = $this->request->getFile('foto');
+        $fileFoto = $this->request->getFile('fotomobil');
+        $extensi = $fileFoto->getClientExtension(); // Misalnya 'jpg', 'png', dll.
+        $namaFileBaru = time() . '_' . uniqid() . '.' . $extensi;
+        $fileFoto->move('product', $namaFileBaru);
+        
+
+        $this->kendaraanModel->save([
+            'nama' => $this->request->getVar('nama'),
+            'jenis' => $this->request->getVar('jenis'),
+            'warna' => $this->request->getVar('warna'),
+            'penumpang' => $this->request->getVar('penumpang'),
+            'efisiensi' => $this->request->getVar('efisiensi'),
+            'mesin' => $this->request->getVar('mesin'),
+            'harga' => $this->request->getVar('harga'),
+            'pajak' => $this->request->getVar('pajak'),
+            'foto' => $namaFileBaru
+        ]);
+
+
+
+        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
+        return redirect()->to(base_url('/admin/dashboard')); 
     }
 }
