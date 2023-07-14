@@ -16,8 +16,8 @@
                     <p class="text-slate-400 font-normal text-lg px-2">Rp<?= number_format($row['harga']) ?></p>
                 </div>
                 <div class="absolute bottom-6 right-0 w-full px-6 ">
-                <button class="btn" onclick="my_modal_1.showModal()">Selengkapnya</button>
-                    <dialog id="my_modal_1" class="modal">
+                <button class="btn" onclick="my_modal_2.showModal()">Selengkapnya</button>
+                    <dialog id="my_modal_2" class="modal">
                     <form method="dialog" class="modal-box">
                         <h3 class="font-bold text-lg"><?= $row['nama'] ?></h3>
                         <div class="flex justify-center items-center">
@@ -51,8 +51,8 @@
                     <p class="text-slate-400 font-normal text-lg px-2">Rp<?= number_format($row['harga']) ?></p>
                 </div>
                 <div class="absolute bottom-6 right-0 w-full px-6 ">
-                <button class="btn" onclick="my_modal_1.showModal()">Selengkapnya</button>
-                    <dialog id="my_modal_1" class="modal">
+                <button class="btn" onclick="my_modal_3.showModal()">Selengkapnya</button>
+                    <dialog id="my_modal_3" class="modal">
                     <form method="dialog" class="modal-box">
                         <h3 class="font-bold text-lg"><?= $row['nama'] ?></h3>
                         <div class="flex justify-center items-center">
