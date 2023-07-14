@@ -55,4 +55,16 @@ class adminController extends BaseController
 
         return view('admin/create', $data);
     }
+
+    public function addMobil() {
+        $nama = $this->request->getVar('nama');
+        $jenis = $this->request->getVar('jenis');
+        $warna = $this->request->getVar('warna');
+        $penumpang = $this->request->getVar('penumpang');
+        $efisiensi = $this->request->getVar('efisiensi');
+        $mesin = $this->request->getVar('mesin');
+        $harga = $this->request->getVar('harga');
+        $pajak = $this->request->getVar('pajak');
+        $foto = $this->request->getFile('foto');
+    }
 }

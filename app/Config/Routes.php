@@ -39,6 +39,7 @@ $routes->get('/admin', 'AdminController::login');
 $routes->post('/auth', 'AdminController::auth');
 $routes->get('/admin/dashboard', 'AdminController::index');
 $routes->get('/admin/tambah', 'AdminController::addViewMobil');
+$routes->post('/admin/tambahMobil', 'AdminController::addMobil');
 
 /*
  * --------------------------------------------------------------------
