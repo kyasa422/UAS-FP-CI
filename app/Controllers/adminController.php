@@ -71,6 +71,21 @@ class adminController extends BaseController
     }
 
     public function addMobil() {
+
+        if(!$this->validate([
+            "fotomobil" => [
+                "rules" => "uploaded[fotomobil]|max_size[fotomobil,2048]|mime_in[fotomobil,image/png,image/jpg,image/jpeg]|is_image[fotomobil]",
+                "errors" => [
+                    "max_size" => "Ukuran maks. foto barang 2 MB",
+                    "uploaded" => "Belum input gambar",
+                    "mime_in" => "hanya menerima png, jpg, dan jpeg",
+                ]
+            ],
+
+        ])){
+            return redirect()->back()->withInput();
+        }
+
         $fileFoto = $this->request->getFile('fotomobil');
         $extensi = $fileFoto->getClientExtension(); // Misalnya 'jpg', 'png', dll.
         $namaFileBaru = time() . '_' . uniqid() . '.' . $extensi;
@@ -91,8 +106,69 @@ class adminController extends BaseController
 
 
 
-        session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-
+        session()->setFlashdata('insert-success', 'Mobil berhasil ditambahkan');
         return redirect()->to(base_url('/admin/dashboard')); 
+    }
+
+    public function updateView($id) {
+        $data = [
+            'title' => 'Update',
+            'data' => $this->kendaraanModel->getMobil($id)
+        ];
+
+        return view('admin/update', $data);
+    }
+
+    public function update() {
+        $nama = $this->request->getVar('nama');
+        $jenis = $this->request->getVar('jenis');
+        $warna = $this->request->getVar('warna');
+        $penumpang = $this->request->getVar('penumpang');
+        $efisiensi = $this->request->getVar('efisiensi');
+        $mesin = $this->request->getVar('mesin');
+        $harga = $this->request->getVar('harga');
+        $pajak = $this->request->getVar('pajak');
+        $foto = $this->request->getFile('fotomobil');
+        $fotoLama = $this->request->getVar('fotoLama');
+        $id = $this->request->getVar('id');
+
+
+        if($foto->getError() == 4){
+            $namaFoto = $fotoLama;
+        }else{
+            $extensi = $foto->getClientExtension(); // Misalnya 'jpg', 'png', dll.
+            $namaFoto = time() . '_' . uniqid() . '.' . $extensi;
+            $foto->move('product', $namaFoto);
+
+            unlink('product/' . $fotoLama);
+        }
+
+        $this->kendaraanModel->save([
+            'id' => $id,
+            'nama' => $nama,
+            'jenis' => $jenis,
+            'warna' => $warna,
+            'penumpang' => $penumpang,
+            'efisiensi' => $efisiensi,
+            'mesin' => $mesin,
+            'harga' => $harga,
+            'pajak' => $pajak,
+            'foto' => $namaFoto
+        ]);
+
+        session()->setFlashdata('update-success', 'mobil telah diupdate');
+        return redirect()->to(base_url('/admin/dashboard'));
+    }
+
+    public function delete($id) {
+        
+        $mobil = $this->kendaraanModel->find($id);
+        unlink('product/'. $mobil['foto']);
+        
+        $this->kendaraanModel->delete($id);
+
+        session()->setFlashdata('delete-success', 'Mobil berhasil dihapus');
+
+        return redirect()->to('/admin/dashboard');
     }
 }

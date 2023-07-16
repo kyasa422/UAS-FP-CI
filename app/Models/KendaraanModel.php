@@ -50,4 +50,12 @@ class KendaraanModel extends Model
     public function getMinibus(){
         return $this->select('kendaraan.id as id, nama, jenis, warna, foto, harga, penumpang, efisiensi, pajak, mesin')->orderBy('id', 'desc')->where(['jenis'=>'Minibus'])->findAll();
     }
+
+    public function getMobil($id = false){
+        if($id == false){
+            return $this->findAll();
+        }
+
+        return $this->where(['id' => $id])->first();
+    }
 }

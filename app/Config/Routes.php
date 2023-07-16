@@ -40,6 +40,9 @@ $routes->post('/auth', 'AdminController::auth');
 $routes->get('/admin/dashboard', 'AdminController::index');
 $routes->get('/admin/tambah', 'AdminController::addViewMobil');
 $routes->post('/admin/tambahMobil', 'AdminController::addMobil');
+$routes->get('/admin/update/(:any)', 'AdminController::updateView/$1');
+$routes->post('/admin/updateMobil', 'AdminController::update');
+$routes->get('/admin/hapus/(:any)', 'AdminController::delete/$1');
 
 /*
  * --------------------------------------------------------------------

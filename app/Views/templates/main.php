@@ -17,6 +17,6 @@
         <?= $this->renderSection('content') ?>
     </div>
     
+    <script src="/src/script.js"></script>
 </body>
-
 </html>
