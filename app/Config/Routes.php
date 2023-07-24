@@ -32,6 +32,9 @@ $routes->set404Override();
 
 // user
 $routes->get('/', 'UserController::index');
+$routes->get('/compare', 'UserController::compare');
+$routes->get('/getNamaMobil', 'UserController::namaMobil');
+
 
 
 // admin
@@ -43,6 +46,7 @@ $routes->post('/admin/tambahMobil', 'AdminController::addMobil');
 $routes->get('/admin/update/(:any)', 'AdminController::updateView/$1');
 $routes->post('/admin/updateMobil', 'AdminController::update');
 $routes->get('/admin/hapus/(:any)', 'AdminController::delete/$1');
+$routes->get('/admin/logout', 'AdminController::logout');
 
 /*
  * --------------------------------------------------------------------

@@ -58,4 +58,8 @@ class KendaraanModel extends Model
 
         return $this->where(['id' => $id])->first();
     }
+
+    public function getNameMobil(){
+        return $this->select('nama, id')->findAll();
+    }
 }

@@ -10,11 +10,13 @@
     </a>
   </div>
   <div class="flex items-center">
-    <!-- <a href="#" class="text-left text-white font-normal text-2xl mr-14">Kelola</a> -->
-    <a href="#" class="">
-      <h1 class="text-white bg-red-600 text-2xl px-4 py-2 rounded-md font-bold hover:bg-red-700">Logout</h1>
-    </a>
-    
+    <?php if(session()->get('account')):?>
+      <a href="/admin/logout" class="">
+        <h1 class="text-white bg-red-600 text-2xl px-4 py-2 rounded-md font-bold hover:bg-red-700">Logout</h1>
+      </a>
+    <?php else : ?>
+      <a href="/compare" class="text-left text-white text-2xl mr-14 py-2 px-3  rounded-md hover:text-yellow-400 hover:bg-white font-medium">Perbandingan</a>
+    <?php endif ?>
   </div>
 </div>
 

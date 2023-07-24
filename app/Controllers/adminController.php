@@ -42,12 +42,19 @@ class adminController extends BaseController
         $password = $this->request->getVar('password');
 
         if($email == 'admin@gmail.com' && $password == 'admin'){
+            $nama = 'admin';
+            session()->set('account', $nama);
             session()->setFlashdata('login-true', 'Selamat datang Admin');
             return redirect()->to(base_url('/admin/dashboard'));
         }else{
             session()->setFlashdata('login-false', 'Email atau Password salah');
             return redirect()->to(base_url('/admin'));
         }
+    }
+
+    public function logout() {
+        session()->destroy();
+        return redirect()->to(base_url('/admin'));
     }
 
     public function index()
