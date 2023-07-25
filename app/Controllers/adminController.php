@@ -63,7 +63,8 @@ class adminController extends BaseController
             'title' => 'Dashboard',
             'sedan' => $this->kendaraanModel->getSedan(),
             'suv' => $this->kendaraanModel->getSUV(),
-            'minibus' => $this->kendaraanModel->getMinibus()
+            'minibus' => $this->kendaraanModel->getMinibus(),
+            'data' => $this->kendaraanModel->findAll()
         ];
 
         return view('admin/index', $data);

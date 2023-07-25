@@ -26,7 +26,7 @@
         <h1 class="text-2xl text-center font-semibold">Perbandingan</h1>
         <br>
         <div class="flex justify-center">
-            <form action="/compare" class="w-1/2 p-2 relative" method="get">
+            <form action="/compare" class="w-1/2 p-2 relative" method="post">
                 <div id="input-container">
                     <select name="alternatif[]" class="w-full p-2 focus:outline-amber-500 mt-2 rounded-md" required>
                         <option value="" selected disabled>Pilih Mobil</option>
@@ -50,6 +50,9 @@
         <br>
     </div>
 
+    <?php if(count($data)<= 0) : ?>
+        <h1 class="text-4xl font-bold text-center my-14">Data Mobil Kosong</h1>
+    <?php endif ?>
 
     <?php if (count($sedan) > 0) : ?>
         <h1 class="text-4xl text-slate-500 font-bold mt-10">Sedan</h1>

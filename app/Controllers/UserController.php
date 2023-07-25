@@ -104,6 +104,7 @@ class UserController extends BaseController
             'suv' => $this->kendaraanModel->getSUV(),
             'minibus' => $this->kendaraanModel->getMinibus(),
             'namaMobil' => $this->kendaraanModel->getNameMobil(),
+            'data' => $this->kendaraanModel->findAll()
         ];
 
         // dd($this->kendaraanModel->getNameMobil());
@@ -116,70 +117,24 @@ class UserController extends BaseController
         echo json_encode($this->kendaraanModel->getNameMobil());
     }
 
-
-    // public function compare() {
-    //     $jumlahNilaiBaris = [];
-    //     $index = 1;
-    //     $matriks = [];
-    //     $alternatif = $this->request->getVar('alternatif');
-        
-    //     // Fuzifikasi
-    //     foreach ($alternatif as $data){
-    //         $matriks[] = [
-    //             'harga' => $this->normHarga($this->kendaraanModel->getMobil($data)['harga']),
-    //             'penumpang' => $this->normPenumpang($this->kendaraanModel->getMobil($data)['penumpang']),
-    //             'mesin' => $this->normMesin($this->kendaraanModel->getMobil($data)['mesin']),
-    //             'efisiensi' => $this->normEfisiensi($this->kendaraanModel->getMobil($data)['efisiensi']),                
-    //             'pajak' => $this->normPajak($this->kendaraanModel->getMobil($data)['pajak']),
-    //         ];
-    //     };
-
-    //     // Penjumlahan nilai baris
-    //     foreach ($matriks as &$data){
-    //         $jumlahNilaiBaris[] = $data['harga'] + $data['penumpang'] + $data['mesin'] + $data['efisiensi'] + $data['pajak'];
-    //     }
-
-    //     // Normalisasi
-    //     foreach ($matriks as &$data) {
-    //         foreach ($data as $atribut => $nilai) {
-    //             $data[$atribut] /= $jumlahNilaiBaris[$index - 1];
-    //         }
-    //         $index++;
-    //     }
-
-    //     // Bobot untuk masing-masing atribut
-    //     $bobot = [
-    //         'harga' => 0.3,
-    //         'penumpang' => 0.1,
-    //         'mesin' => 0.2,
-    //         'efisiensi' => 0.3,
-    //         'pajak' => 0.1,
-    //     ];
-
-    //     // Perkalian nilai matriks dengan bobot
-    //     foreach ($matriks as &$data) {
-    //         foreach ($bobot as $atribut => $nilai_bobot) {
-    //             $data[$atribut] *= $nilai_bobot;
-    //         }
-    //     }
-
-    //     // Melakukan operasi lain jika diperlukan, misalnya menjumlahkan nilai total dari matriks
-
-    //     d('hasil akhir');
-    //     dd($matriks);
-    // }
-
-
     public function compare() {
         $jumlahHarga = 0;
         $jumlahPenumpang = 0;
         $jumlahMesin = 0;
         $jumlahEfisiensi = 0;
         $jumlahPajak = 0;
-        $jumBenefit = 0
-
+        $jumBenefit = [];
+        $jumCost = [];
+        $index = 1;
+        $totalCost = 0;
+        $totalCostInv = 0;
+        $jumCost2 = [];
+        $detr = [];
+        $ranking = [];
+        $final = [];
         $matriks = [];
         $alternatif = $this->request->getVar('alternatif');
+        
         
         // Fuzifikasi
         foreach ($alternatif as $data){
@@ -221,14 +176,104 @@ class UserController extends BaseController
 
         // penjumlahan benefit
         foreach ($matriks as &$data){
-            $jumBenefit  = $data['penumpang'] + $data['mesin'] + $data['efisiensi'];
+            $jumBenefit[] = [
+                'benefit'. $index => $data['penumpang'] + $data['mesin'] + $data['efisiensi']
+            ];
+            $index++;
+        };        
+
+        $index = 1;
+        // penjumlahan cost
+        foreach ($matriks as &$data){
+            $jumCost[] = [
+                'cost'. $index => $data['harga'] + $data['pajak']
+            ];
+
+            $jumCost2[] = [
+                'cost'. $index => $data['harga'] + $data['pajak']
+            ];
+            $index++;
         };
 
-        
+        $index = 1;
+        //total jumlah cost
+        foreach ($jumCost as &$data){
+            $totalCost += $data['cost'. $index];
+            $index++;
+        }
 
-        dd($matriks);
+        $index = 1;
+        //cos/inv
+        foreach ($jumCost as &$data){
+            $data['cost'.$index] = 1/$data['cost'.$index];
+            $index++;
+        }
+
+        //total jumlah cost/inv
+        $index = 1;
+        foreach ($jumCost as &$data){
+            $totalCostInv += $data['cost'. $index];
+            $index++;
+        }
+
+
+        //detr
+        $index = 1;
+        foreach ($jumCost2 as &$data){
+            $detr[] = [
+                'detr'. $index => $data['cost'. $index] * $totalCostInv
+            ];
+            $index++;
+        }
+
+        // perangkingan
+        $index = 1;
+        foreach ($jumBenefit as &$data){
+            $ranking[] = [
+                'rank'. $index => $data['benefit'. $index]+($totalCost/$detr[$index-1]['detr'. $index])
+            ];
+
+            $index++;
+        }
+
+        $index = 1;
+        foreach ($alternatif as &$data){
+            $final[] = [
+                'nama' => $this->kendaraanModel->getMobil($data)['nama'],
+                'jenis' => $this->kendaraanModel->getMobil($data)['jenis'],
+                'warna' => $this->kendaraanModel->getMobil($data)['warna'],
+                'foto' => $this->kendaraanModel->getMobil($data)['foto'],
+                'harga' => $this->kendaraanModel->getMobil($data)['harga'],
+                'penumpang' => $this->kendaraanModel->getMobil($data)['penumpang'],
+                'efisiensi' => $this->kendaraanModel->getMobil($data)['efisiensi'],
+                'pajak' => $this->kendaraanModel->getMobil($data)['pajak'],
+                'mesin' => $this->kendaraanModel->getMobil($data)['mesin'],
+                'rangking' => $ranking[$index-1]['rank'. $index],
+                'hargaFuz' => $this->normHarga($this->kendaraanModel->getMobil($data)['harga']),
+                'penumpangFuz' => $this->normPenumpang($this->kendaraanModel->getMobil($data)['penumpang']),
+                'efisiensiFuz' => $this->normEfisiensi($this->kendaraanModel->getMobil($data)['efisiensi']),
+                'pajakFuz' => $this->normPajak($this->kendaraanModel->getMobil($data)['pajak']),
+                'mesinFuz' => $this->normMesin($this->kendaraanModel->getMobil($data)['mesin']),
+            ];
+
+            $index++;
+        }
+
+        $barStyle = [
+            'info',
+            'success',
+            'warning',
+            'error'
+        ];
+
+        $data = [
+            'title' => 'komparasi',
+            'data' => $final,
+            'bar' => $barStyle
+        ];
+
+        return view('users/komparasi', $data);
     }
-
 
 
 }

@@ -32,7 +32,7 @@ $routes->set404Override();
 
 // user
 $routes->get('/', 'UserController::index');
-$routes->get('/compare', 'UserController::compare');
+$routes->post('/compare', 'UserController::compare');
 $routes->get('/getNamaMobil', 'UserController::namaMobil');
 
 

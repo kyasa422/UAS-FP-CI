@@ -32,6 +32,12 @@
 
 
     <a href="/admin/tambah" class="btn btn-accent text-white">[+] Tambah Mobil</a>
+
+
+    <?php if(count($data)<= 0) : ?>
+        <h1 class="text-4xl font-bold text-center">Data Mobil Masih Kosong</h1>
+    <?php endif ?>
+
     <?php if (count($sedan) > 0) : ?>
         <h1 class="text-4xl text-slate-500 font-bold mt-10">Sedan</h1>
         <div class="flex items-center flex-wrap gap-8">
@@ -72,7 +78,7 @@
                                 </div>
                                 <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error">Hapus</a>
+                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                                 <button class="btn btn-outline">Tutup</button>
                                 </div>
                             </form>
@@ -97,7 +103,7 @@
             <div class="w-72 h-80 shadow-lg relative p-3 mt-6">
                 <div class="flex justify-center items-center">
                     <div class="w-48 h-40 overflow-hidden rounded-md flex justify-center items-center">
-                        <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center h-full">
+                        <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center w-full">
                     </div>
                 </div>
                 <div class="px-4 py-3">
@@ -128,7 +134,7 @@
                                 </div>
                                 <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error">Hapus</a>
+                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                                 <button class="btn btn-outline">Tutup</button>
                                 </div>
                             </form>
@@ -153,7 +159,7 @@
                 <div class="w-72 h-80 shadow-lg relative p-3 mt-6">
                     <div class="flex justify-center items-center">
                         <div class="w-48 h-40 overflow-hidden rounded-md flex justify-center items-center">
-                            <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center h-full">
+                            <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center w-full">
                         </div>
                     </div>
                     <div class="px-4 py-3">
@@ -184,8 +190,7 @@
                                 </div>
                                 <div class="modal-action">
                                 <!-- if there is a button in form, it will close the modal -->
-                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error">Hapus</a>
-                                <a href="#">Hapus</a>
+                                <a href="/admin/hapus/<?= $row['id'] ?>" class="btn btn-outline btn-error" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                                 <button class="btn btn-outline">Tutup</button>
                                 </div>
                             </form>
