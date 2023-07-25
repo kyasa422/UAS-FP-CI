@@ -113,7 +113,7 @@
             <div class="w-72 h-80 shadow-lg relative p-3 mt-6">
                 <div class="flex justify-center items-center">
                     <div class="w-48 h-40 overflow-hidden rounded-md flex justify-center items-center">
-                        <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center h-full">
+                        <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center w-full">
                     </div>
                 </div>
                 <div class="px-4 py-3">
@@ -163,7 +163,7 @@
                 <div class="w-72 h-80 shadow-lg relative p-3 mt-6">
                     <div class="flex justify-center items-center">
                         <div class="w-48 h-40 overflow-hidden rounded-md flex justify-center items-center">
-                            <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center h-full">
+                            <img src="/product/<?= $row['foto'] ?>" alt="mobil" class="object-cover object-center w-full">
                         </div>
                     </div>
                     <div class="px-4 py-3">
